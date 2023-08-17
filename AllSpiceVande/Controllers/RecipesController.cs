@@ -35,6 +35,44 @@ public class RecipesController : ControllerBase
     }
   }
 
+  [Authorize]
+  [HttpPut("{recipeId}")]
+
+  public async Task<ActionResult<Recipe>> EditRecipe([FromBody] Recipe recipeData, int recipeId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+      Recipe recipe = _recipesService.EditRecipe(recipeId, recipeData, userInfo.Id);
+
+      return recipe;
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  [Authorize]
+  [HttpDelete("{recipeId}")]
+
+  public async Task<ActionResult<string>> RemoveRecipe(int recipeId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+      Recipe recipe = _recipesService.RemoveRecipe(recipeId, userInfo.Id);
+
+      return Ok($"The recipe with the title {recipe.Title} was successfully deleted.");
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
   [HttpGet("{recipeId}")]
   public ActionResult<Recipe> GetRecipeById(int recipeId)
   {
@@ -42,6 +80,21 @@ public class RecipesController : ControllerBase
     {
       Recipe recipe = _recipesService.GetRecipeById(recipeId);
       return Ok(recipe);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  [HttpGet]
+
+  public ActionResult<List<Recipe>> GetAllRecipes()
+  {
+    try
+    {
+      List<Recipe> recipes = _recipesService.GetAllRecipes();
+      return Ok(recipes);
     }
     catch (Exception e)
     {
