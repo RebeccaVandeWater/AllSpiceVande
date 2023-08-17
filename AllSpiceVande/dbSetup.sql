@@ -38,6 +38,15 @@ CREATE TABLE
         FOREIGN KEY(creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
+CREATE TABLE
+    ingredients(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        name VARCHAR(255) NOT NULL,
+        quantity INT NOT NULL,
+        recipeId INT NOT NULL,
+        FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+    ) default charset utf8 COMMENT '';
+
 DROP TABLE recipes;
 
 INSERT INTO
