@@ -14,8 +14,44 @@ public class IngredientsRepository
     _db = db;
   }
 
-  internal Ingredient CreateIngredient(Ingredient ingredientData)
+  internal int CreateIngredient(Ingredient ingredientData)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    INSERT INTO ingredients(name, quantity, recipeId)
+    VALUES(@Name, @Quantity, @RecipeId);
+    SELECT LAST_INSERT_ID()
+    ;";
+
+    int ingredientId = _db.ExecuteScalar<int>(sql, ingredientData);
+
+    return ingredientId;
+  }
+
+  internal Ingredient GetIngredientById(int ingredientId)
+  {
+    string sql = "SELECT * FROM ingredients WHERE id = @ingredientId;";
+
+    Ingredient ingredient = _db.QueryFirstOrDefault<Ingredient>(sql, new { ingredientId });
+
+    return ingredient;
+  }
+
+  internal List<Ingredient> GetIngredientsByRecipeId(int recipeId)
+  {
+    string sql = @"
+        SELECT * FROM ingredients
+        WHERE recipeId = @recipeId
+        ;";
+
+    List<Ingredient> ingredients = _db.Query<Ingredient>(sql, new { recipeId }).ToList();
+
+    return ingredients;
+  }
+
+  internal void RemoveIngredient(int ingredientId)
+  {
+    string sql = "DELETE FROM ingredients WHERE id = @ingredientId LIMIT 1;";
+
+    _db.Execute(sql, new { ingredientId });
   }
 }

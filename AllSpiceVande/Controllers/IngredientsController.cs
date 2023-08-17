@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AllSpiceVande.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class IngredientsController : ControllerBase
@@ -18,15 +19,34 @@ public class IngredientsController : ControllerBase
     _auth0Provider = auth0Provider;
   }
 
-  [Authorize]
   [HttpPost]
-  public ActionResult<Ingredient> CreateIngredient([FromBody] Ingredient ingredientData)
+  public async Task<ActionResult<Ingredient>> CreateIngredient([FromBody] Ingredient ingredientData)
   {
     try
     {
-      Ingredient ingredient = _ingredientsService.CreateIngredient(ingredientData);
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+      Ingredient ingredient = _ingredientsService.CreateIngredient(ingredientData, userInfo.Id);
 
       return Ok(ingredient);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  [HttpDelete("{ingredientId}")]
+
+  public async Task<ActionResult<string>> RemoveIngredient(int ingredientId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+      _ingredientsService.RemoveIngredient(ingredientId, userInfo.Id);
+
+      return Ok("The ingredient was successfully removed.");
     }
     catch (Exception e)
     {

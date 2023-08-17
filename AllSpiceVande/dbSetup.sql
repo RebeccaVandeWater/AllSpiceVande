@@ -42,12 +42,23 @@ CREATE TABLE
     ingredients(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(255) NOT NULL,
-        quantity INT NOT NULL,
+        quantity VARCHAR(255) NOT NULL,
         recipeId INT NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
+CREATE TABLE
+    favorites(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        accountId VARCHAR(255) NOT NULL,
+        recipeId INT NOT NULL,
+        FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
+        FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+    ) default charset utf8 COMMENT '';
+
 DROP TABLE recipes;
+
+DROP TABLE ingredients;
 
 INSERT INTO
     recipes (
@@ -63,7 +74,11 @@ VALUES (
         '64dd370a7ca482920883ae34'
     );
 
-SELECT LAST_INSERT_ID ;
+SELECT * FROM ingredients WHERE id = 1;
+
+INSERT INTO
+    ingredients(name, quantity, recipeId)
+VALUES ('tomato', '1', '2');
 
 SELECT * FROM recipes;
 
