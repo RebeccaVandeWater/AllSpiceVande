@@ -69,11 +69,32 @@ CREATE TABLE
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
+CREATE TABLE
+    likes(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        accountId VARCHAR(255) NOT NULL,
+        commentId INT NOT NULL,
+        FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
+        FOREIGN KEY (commentId) REFERENCES comments(id) ON DELETE CASCADE
+    ) default charset utf8 COMMENT '';
+
+CREATE TABLE
+    ratings(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        score ENUM("0", "1", "2", "3", "4", "5") DEFAULT "0",
+        accountId VARCHAR(255) NOT NULL,
+        recipeId INT NOT NULL,
+        FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
+        FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+    ) default charset utf8 COMMENT '';
+
 DROP TABLE recipes;
 
 DROP TABLE ingredients;
 
 DROP TABLE comments;
+
+DROP TABLE favorites;
 
 INSERT INTO
     recipes (

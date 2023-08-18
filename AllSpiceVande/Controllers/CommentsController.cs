@@ -12,26 +12,13 @@ public class CommentsController : ControllerBase
 {
   private readonly CommentsService _commentsService;
   private readonly Auth0Provider _auth0Provider;
+  private readonly LikesService _likesService;
 
-  public CommentsController(CommentsService commentsService, Auth0Provider auth0Provider)
+  public CommentsController(CommentsService commentsService, Auth0Provider auth0Provider, LikesService likesService)
   {
     _commentsService = commentsService;
     _auth0Provider = auth0Provider;
-  }
-
-  [HttpGet("{commentId}")]
-  public ActionResult<Comment> GetCommentById(int commentId)
-  {
-    try
-    {
-      Comment comment = _commentsService.GetCommentById(commentId);
-
-      return Ok(comment);
-    }
-    catch (Exception e)
-    {
-      return BadRequest(e.Message);
-    }
+    _likesService = likesService;
   }
 
   [Authorize]
@@ -86,6 +73,22 @@ public class CommentsController : ControllerBase
       _commentsService.RemoveComment(commentId, userInfo.Id);
 
       return Ok("The comment was successfully removed.");
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  [HttpGet("{commentId}/likes")]
+
+  public ActionResult<List<Like>> GetCommentLikes(int commentId)
+  {
+    try
+    {
+      List<Like> likes = _likesService.GetCommentLikes(commentId);
+
+      return Ok(likes);
     }
     catch (Exception e)
     {
