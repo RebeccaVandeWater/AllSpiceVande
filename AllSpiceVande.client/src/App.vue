@@ -5,9 +5,6 @@
   <main>
     <router-view />
   </main>
-   <footer class="bg-dark text-light">
-    Made with 💖 by CodeWorks
-  </footer>
 </template>
 
 <script>
@@ -26,15 +23,18 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Cinzel+Decorative&family=Concert+One&family=Forum&family=Indie+Flower&family=Kalam:wght@300&family=Kumar+One+Outline&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;1,400;1,600;1,800&family=Shadows+Into+Light&family=Shrikhand&family=Staatliches&display=swap');
 
 :root{
   --main-height: calc(100vh - 32px - 64px);
 }
 
+.subtitle-font{
+  font-family: 'Playfair Display', serif;
+}
 
-footer {
-  display: grid;
-  place-content: center;
-  height: 32px;
+.title-font{
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
 }
 </style>

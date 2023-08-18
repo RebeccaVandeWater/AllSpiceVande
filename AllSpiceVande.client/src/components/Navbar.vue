@@ -1,24 +1,26 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
-      </div>
-    </router-link>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
+  <nav class="navbar-nav bg-body-tertiary">
+    <div class="container-fluid">
+      <section class="row flex-grow-1">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+          <router-link :to="{name: 'Home'}">
+            <div>
+              <a class="navbar-brand fs-3 text-dark"><i class="mdi mdi-home" title="Home"></i></a>
+            </div>
           </router-link>
-        </li>
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
+          <div class="d-flex align-items-center">
+            <form role="search">
+              <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-success" type="submit"><i class="mdi mdi-magnify" title="Search"></i></button>
+              </div>
+            </form>
+            <span class="ps-4 navbar-text">
+              <Login />
+            </span>
+          </div>
+        </div>
+      </section>
     </div>
   </nav>
 </template>
