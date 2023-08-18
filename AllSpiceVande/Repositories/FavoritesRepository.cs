@@ -35,4 +35,38 @@ public class FavoritesRepository
 
     return favorite;
   }
+
+  internal List<RecipeFavorite> GetMyFavorites(string userId)
+  {
+    string sql = @"
+        SELECT 
+        fav.*,
+        rec.*,
+        acc.*
+        FROM favorites fav
+        JOIN recipes rec ON rec.id = fav.recipeId
+        JOIN accounts acc ON acc.id = rec.creatorId
+        WHERE fav.accountId = @userId
+        ;";
+
+    List<RecipeFavorite> favorites = _db.Query<Favorite, RecipeFavorite, Profile, RecipeFavorite>(
+      sql,
+      (favorite, recipe, profile) =>
+      {
+        recipe.FavoriteId = favorite.Id;
+        recipe.Creator = profile;
+        return recipe;
+      },
+      new { userId }
+    ).ToList();
+
+    return favorites;
+  }
+
+  internal void RemoveFavorite(int favoriteId)
+  {
+    string sql = "DELETE FROM favorites WHERE id = @favoriteId LIMIT 1;";
+
+    _db.Execute(sql, new { favoriteId });
+  }
 }

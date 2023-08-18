@@ -33,4 +33,23 @@ public class FavoritesService
 
     return favorite;
   }
+
+  internal List<RecipeFavorite> GetMyFavorites(string userId)
+  {
+    List<RecipeFavorite> favorites = _favoritesRepository.GetMyFavorites(userId);
+
+    return favorites;
+  }
+
+  internal void RemoveFavorite(int favoriteId, string userId)
+  {
+    Favorite favoriteToRemove = GetFavoriteById(favoriteId);
+
+    if (favoriteToRemove.AccountId != userId)
+    {
+      throw new Exception("You are not the owner of this favorite. You may not remove it.");
+    }
+
+    _favoritesRepository.RemoveFavorite(favoriteId);
+  }
 }

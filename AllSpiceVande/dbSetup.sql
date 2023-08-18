@@ -56,9 +56,24 @@ CREATE TABLE
         FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
+CREATE TABLE
+    comments(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        title VARCHAR(255) NOT NULL,
+        content VARCHAR(500) NOT NULL,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+        recipeId INT NOT NULL,
+        creatorId VARCHAR(255) NOT NULL,
+        FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE,
+        FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
+    ) default charset utf8 COMMENT '';
+
 DROP TABLE recipes;
 
 DROP TABLE ingredients;
+
+DROP TABLE comments;
 
 INSERT INTO
     recipes (

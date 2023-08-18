@@ -37,7 +37,9 @@ public class RecipesService
     originalRecipe.Img = recipeData.Img ?? originalRecipe.Img;
     originalRecipe.Category = recipeData.Category ?? originalRecipe.Category;
 
-    Recipe recipe = _recipesRepository.EditRecipe(originalRecipe);
+    Recipe editedRecipe = _recipesRepository.EditRecipe(originalRecipe);
+
+    Recipe recipe = GetRecipeById(editedRecipe.Id);
 
     return recipe;
   }

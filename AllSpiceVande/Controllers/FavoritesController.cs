@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AllSpiceVande.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class FavoritesController : ControllerBase
@@ -19,7 +20,6 @@ public class FavoritesController : ControllerBase
     _auth0Provider = auth0Provider;
   }
 
-  [Authorize]
   [HttpPost]
 
   public async Task<ActionResult<Favorite>> CreateFavorite([FromBody] Favorite favoriteData)
@@ -33,6 +33,24 @@ public class FavoritesController : ControllerBase
       Favorite favorite = _favoritesService.CreateFavorite(favoriteData);
 
       return Ok(favorite);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+  [HttpDelete("{favoriteId}")]
+
+  public async Task<ActionResult<string>> RemoveFavorite(int favoriteId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+      _favoritesService.RemoveFavorite(favoriteId, userInfo.Id);
+
+      return Ok("The favorite was successfully removed.");
     }
     catch (Exception e)
     {
