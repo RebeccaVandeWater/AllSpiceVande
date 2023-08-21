@@ -31,6 +31,8 @@ export default {
 
 .subtitle-font{
   font-family: 'Playfair Display', serif;
+  color: white;
+  text-shadow: 2px 2px 3px black;
 }
 
 .title-font{

@@ -27,6 +27,7 @@ public class FavoritesService
   }
   internal Favorite CreateFavorite(Favorite favoriteData)
   {
+
     int favoriteId = _favoritesRepository.CreateFavorite(favoriteData);
 
     Favorite favorite = GetFavoriteById(favoriteId);

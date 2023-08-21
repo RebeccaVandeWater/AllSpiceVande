@@ -50,6 +50,13 @@ public class RecipesService
     return recipes;
   }
 
+  internal List<Recipe> GetMyRecipes(string userId)
+  {
+    List<Recipe> recipes = _recipesRepository.GetMyRecipes(userId);
+
+    return recipes;
+  }
+
   internal Recipe GetRecipeById(int recipeId)
   {
     Recipe recipe = _recipesRepository.GetRecipeById(recipeId);

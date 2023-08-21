@@ -12,6 +12,7 @@ CREATE TABLE
     recipes(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         title VARCHAR(255) NOT NULL,
+        subtitle VARCHAR(255),
         instructions VARCHAR(700) NOT NULL,
         img VARCHAR(700) NOT NULL,
         category ENUM(
@@ -95,6 +96,10 @@ DROP TABLE ingredients;
 DROP TABLE comments;
 
 DROP TABLE favorites;
+
+DROP TABLE ratings;
+
+DROP TABLE likes;
 
 INSERT INTO
     recipes (
