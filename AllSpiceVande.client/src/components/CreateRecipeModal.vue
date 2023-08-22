@@ -16,12 +16,12 @@
       <input v-model="editable.subtitle" type="text" id="subtitle" placeholder="Details..." title="Subtitle" maxlength="255" class="form-control">
       <span class="fw-light ps-2">A brief description of the recipe</span>
     </div>
-    <div class="mb-2 col-12">
+    <div class="mb-3 col-12">
       <label for="instructions">Instructions</label>
       <textarea v-model="editable.instructions" name="instructions" id="instructions" cols="30" rows="2" minlength="1" maxlength="700" required class="form-control"></textarea>
     </div>
-    <!-- FIXME - Add a better way to preview or add images (file upload, unsplash search, etc.) -->
     <div class="mb-3 col-12">
+      <img class="img-fluid form-img mb-2" v-if="editable.img" :src=editable.img alt="img">
       <label for="img">Recipe Image</label>
       <input v-model="editable.img" type="url" name="img" id="img" placeholder="Recipe Image..." required minlength="1" maxlength="700" class="form-control">
     </div>
@@ -55,10 +55,13 @@ export default {
         const clearConfirm = await Pop.confirm('Are you sure you want to cancel?');
 
         if(!clearConfirm){
+          Modal.getOrCreateInstance('#createRecipeModal').show()
           return;
         }
-
-        editable.value = {};
+        else{
+          editable.value = {};
+          Modal.getOrCreateInstance('#createRecipeModal').hide()
+        }
       },
 
       async createRecipe(){
@@ -84,5 +87,10 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.form-img{
+  height: 40vh;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 </style>

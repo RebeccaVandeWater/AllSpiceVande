@@ -18,11 +18,10 @@
       </div>
     </div>
     <div class="p-2 m-2 grey-box-title">
-      <p>
+      <p class="m-0">
         <span>
           {{ recipeProp.title }}
         </span> <br>
-        <!-- FIXME - subtitle not showing or coming back from backend -->
         <span>
           {{ recipeProp.subtitle }}
         </span>

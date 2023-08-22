@@ -18,8 +18,8 @@ public class RecipesRepository
   internal int CreateRecipe(Recipe recipeData)
   {
     string sql = @"
-    INSERT INTO recipes (title, instructions, img, category, creatorId)
-    VALUES(@Title, @Instructions, @Img, @Category, @CreatorId);
+    INSERT INTO recipes (title, subtitle, instructions, img, category, creatorId)
+    VALUES(@Title, @Subtitle, @Instructions, @Img, @Category, @CreatorId);
     SELECT LAST_INSERT_ID()
     ;";
 
@@ -34,6 +34,7 @@ public class RecipesRepository
         UPDATE recipes 
         SET 
         title = @Title,
+        subtitle = @Subtitle,
         instructions = @Instructions,
         img = @Img,
         category = @Category
