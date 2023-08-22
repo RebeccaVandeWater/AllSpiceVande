@@ -39,4 +39,8 @@ export default {
   font-family: 'Playfair Display', serif;
   font-weight: 600;
 }
+
+.main-green-text{
+  color: #1c7f47;
+}
 </style>

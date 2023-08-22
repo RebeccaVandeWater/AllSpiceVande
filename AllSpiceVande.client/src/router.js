@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { authGuard } from '@bcwdev/auth0provider-client'
+import { authGuard, authSettled } from '@bcwdev/auth0provider-client'
 
 function loadPage(page) {
   return () => import(`./pages/${page}.vue`)
@@ -24,7 +24,8 @@ const routes = [
       {
         path: '/myfavorites',
         name: 'My Favorites',
-        component: loadPage('MyFavoritesPage')
+        component: loadPage('MyFavoritesPage'),
+        beforeEnter: authSettled
       },
     ]
   },

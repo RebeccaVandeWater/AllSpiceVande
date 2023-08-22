@@ -13,7 +13,7 @@ CREATE TABLE
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         title VARCHAR(255) NOT NULL,
         subtitle VARCHAR(255),
-        instructions VARCHAR(700) NOT NULL,
+        instructions VARCHAR(700),
         img VARCHAR(700) NOT NULL,
         category ENUM(
             'Cheese',
@@ -44,6 +44,15 @@ CREATE TABLE
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(255) NOT NULL,
         quantity VARCHAR(255) NOT NULL,
+        recipeId INT NOT NULL,
+        FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+    ) default charset utf8 COMMENT '';
+
+CREATE TABLE
+    steps(
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        number INT NOT NULL,
+        instructions VARCHAR(255) NOT NULL,
         recipeId INT NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
@@ -92,6 +101,8 @@ CREATE TABLE
 DROP TABLE recipes;
 
 DROP TABLE ingredients;
+
+DROP TABLE steps;
 
 DROP TABLE comments;
 

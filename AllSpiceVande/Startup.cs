@@ -40,6 +40,9 @@ public class Startup
     services.AddScoped<IngredientsRepository>();
     services.AddScoped<IngredientsService>();
 
+    services.AddScoped<StepsRepository>();
+    services.AddScoped<StepsService>();
+
     services.AddScoped<FavoritesRepository>();
     services.AddScoped<FavoritesService>();
 

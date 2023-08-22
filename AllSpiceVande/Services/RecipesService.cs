@@ -82,4 +82,10 @@ public class RecipesService
 
     return recipeToRemove;
   }
+
+  internal List<Recipe> SearchRecipes(string query)
+  {
+    List<Recipe> recipes = _recipesRepository.SearchRecipes(query);
+    return recipes;
+  }
 }

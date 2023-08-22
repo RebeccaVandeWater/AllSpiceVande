@@ -14,8 +14,6 @@ class FavoritesService {
       const favorites = res.data.map(p => new Favorite(p))
 
       AppState.myFavorites = favorites
-
-      logger.log(favorites)
     }
     catch (error) {
       Pop.error(error.message);

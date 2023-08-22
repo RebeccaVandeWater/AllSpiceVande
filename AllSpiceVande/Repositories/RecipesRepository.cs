@@ -121,4 +121,28 @@ public class RecipesRepository
 
     _db.Execute(sql, new { recipeId });
   }
+
+  internal List<Recipe> SearchRecipes(string query)
+  {
+    string sql = @"
+      SELECT
+      rec.*,
+      acc.*
+      FROM recipes rec
+      JOIN accounts acc ON acc.id = rec.creatorId
+      WHERE rec.category = %@query%
+      OR rec.title = %@query%
+      ;";
+
+    List<Recipe> recipes = _db.Query<Recipe, Profile, Recipe>(
+      sql,
+      (recipe, profile) =>
+      {
+        recipe.Creator = profile;
+        return recipe;
+      },
+      new { query }
+    ).ToList();
+    return recipes;
+  }
 }

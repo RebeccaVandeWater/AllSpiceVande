@@ -154,4 +154,19 @@ public class RecipesController : ControllerBase
       return BadRequest(e.Message);
     }
   }
+
+  [HttpGet("/search")]
+
+  public ActionResult<List<Recipe>> SearchRecipes([FromBody] string query)
+  {
+    try
+    {
+      List<Recipe> recipes = _recipesService.SearchRecipes(query);
+      return Ok(recipes);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 }

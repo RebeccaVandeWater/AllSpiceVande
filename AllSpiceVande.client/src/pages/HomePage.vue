@@ -103,24 +103,36 @@ import { AppState } from '../AppState.js';
 import Pop from '../utils/Pop.js';
 import {recipesService} from '../services/RecipesService.js'
 import ModalComponent from '../components/ModalComponent.vue';
+import { useRoute } from 'vue-router';
+import { router } from '../router.js';
 
 export default {
     setup() {
-        async function getRecipes() {
-            try {
-                await recipesService.getRecipes();
-            }
-            catch (error) {
-                Pop.error(error.message);
-            }
+      const route = useRoute()
+      async function getRecipes() {
+          try {
+              await recipesService.getRecipes();
+          }
+          catch (error) {
+              Pop.error(error.message);
+          }
+      }
+
+      function openRecipesPage(){
+        if(route.name == 'Home'){
+          router.push({name: 'Recipes'})
         }
-        onMounted(() => {
-            getRecipes();
-        });
-        return {
-            account: computed(() => AppState.account),
-            recipes: computed(() => AppState.recipes)
-        };
+      }
+
+      onMounted(() => {
+          getRecipes();
+          openRecipesPage();
+      });
+
+      return {
+          account: computed(() => AppState.account),
+          recipes: computed(() => AppState.recipes)
+      };
     },
     components: { ModalComponent }
 }

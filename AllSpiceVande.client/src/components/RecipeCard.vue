@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column flex-grow-1 justify-content-between recipe-img" title="View Recipe" role="button">
     <div class="d-flex justify-content-between">
-      <p class="p-1 m-2 grey-box-category">
+      <p class="p-1 m-2 grey-box-category fw-semibold">
         {{ recipeProp.category }}
       </p>
       <div v-if="account.id">
@@ -19,7 +19,7 @@
     </div>
     <div class="p-2 m-2 grey-box-title">
       <p class="m-0">
-        <span>
+        <span class="fw-semibold">
           {{ recipeProp.title }}
         </span> <br>
         <span>

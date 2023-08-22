@@ -32,7 +32,7 @@ public class AccountsRepository
     return newAccount;
   }
 
-  internal Account Edit(Account update)
+  internal Account Edit(Account original)
   {
     string sql = @"
             UPDATE accounts
@@ -40,8 +40,8 @@ public class AccountsRepository
               name = @Name,
               picture = @Picture
             WHERE id = @Id;";
-    _db.Execute(sql, update);
-    return update;
+    _db.Execute(sql, original);
+    return original;
   }
 }
 

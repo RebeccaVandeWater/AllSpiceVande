@@ -16,10 +16,10 @@
       <input v-model="editable.subtitle" type="text" id="subtitle" placeholder="Details..." title="Subtitle" maxlength="255" class="form-control">
       <span class="fw-light ps-2">A brief description of the recipe</span>
     </div>
-    <div class="mb-3 col-12">
+    <!-- <div class="mb-3 col-12">
       <label for="instructions">Instructions</label>
       <textarea v-model="editable.instructions" name="instructions" id="instructions" cols="30" rows="2" minlength="1" maxlength="700" required class="form-control"></textarea>
-    </div>
+    </div> -->
     <div class="mb-3 col-12">
       <img class="img-fluid form-img mb-2" v-if="editable.img" :src=editable.img alt="img">
       <label for="img">Recipe Image</label>
