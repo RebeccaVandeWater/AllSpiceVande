@@ -1,25 +1,28 @@
 <template>
-  <div class="d-flex flex-column align-items-apart recipe-img">
+  <div class="d-flex flex-column flex-grow-1 justify-content-between recipe-img" title="View Recipe" role="button">
     <div class="d-flex justify-content-between">
       <p class="p-1 m-2 grey-box-category">
         {{ recipeProp.category }}
       </p>
-      <div class="grey-box-btn me-3"  v-if="favorited">
-        <button class="btn" @click="removeFavorite()"  title="Unfavorite Recipe">
-          <i class="mdi mdi-heart text-danger"></i>
-        </button>
-      </div>
-      <div class="grey-box-btn me-3" v-else>
-        <button class="btn d-flex align-items-center" @click="createFavorite(recipeProp.id)" title="Favorite Recipe">
-          <i class="mdi mdi-heart-outline"></i>
-        </button>
+      <div v-if="account.id">
+        <div class="grey-box-btn me-3"  v-if="favorited">
+          <button class="btn" @click="removeFavorite()"  title="Unfavorite Recipe">
+            <i class="mdi mdi-heart text-danger"></i>
+          </button>
+        </div>
+        <div class="grey-box-btn me-3" v-else>
+          <button class="btn d-flex align-items-center" @click="createFavorite(recipeProp.id)" title="Favorite Recipe">
+            <i class="mdi mdi-heart-outline"></i>
+          </button>
+        </div>
       </div>
     </div>
-    <div class="p-3 m-1 d-flex align-items-end text-center grey-box-title">
+    <div class="p-2 m-2 grey-box-title">
       <p>
         <span>
           {{ recipeProp.title }}
-        </span>
+        </span> <br>
+        <!-- FIXME - subtitle not showing or coming back from backend -->
         <span>
           {{ recipeProp.subtitle }}
         </span>
@@ -45,6 +48,7 @@ export default {
 
   setup(props){
     return {
+      account: computed(() => AppState.account),
       recipeImg: computed(() => `url(${props.recipeProp.img})`),
       myFavorites: computed(() => AppState.myFavorites),
       favorited: computed(() => {

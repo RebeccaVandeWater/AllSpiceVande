@@ -5,6 +5,15 @@ import Pop from "../utils/Pop.js";
 import { api } from "./AxiosService.js"
 
 class RecipesService {
+  async createRecipe(recipeData) {
+    const res = await api.post('api/recipes', recipeData)
+
+    logger.log('[CREATED RECIPE]', res.data)
+
+    AppState.recipes.push(new Recipe(res.data))
+
+    AppState.myRecipes.push(new Recipe(res.data))
+  }
 
   async getMyRecipes() {
     try {

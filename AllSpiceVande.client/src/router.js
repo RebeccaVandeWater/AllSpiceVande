@@ -9,7 +9,24 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: loadPage('HomePage')
+    component: loadPage('HomePage'),
+    children: [
+      {
+        path: '/recipes',
+        name: 'Recipes',
+        component: loadPage('RecipePage')
+      },
+      {
+        path: '/myrecipes',
+        name: 'My Recipes',
+        component: loadPage('MyRecipesPage')
+      },
+      {
+        path: '/myfavorites',
+        name: 'My Favorites',
+        component: loadPage('MyFavoritesPage')
+      },
+    ]
   },
   {
     path: '/about',
